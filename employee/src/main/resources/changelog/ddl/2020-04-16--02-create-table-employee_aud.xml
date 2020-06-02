@@ -1,0 +1,80 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Alesksei_Iun" id="2020-03-24-1-create-sequence-employee_aud">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="employee_aud_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="employee_aud_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Alesksei_Iun" id="2020-03-24-2-create-table-employee_aud">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="employee_aud"/>
+            </not>
+        </preConditions>
+        <createTable tableName="employee_aud">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="rev" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revtype" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="VARCHAR(60)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sex" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_birth" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_start_work" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_end_work" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="position" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="salary" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chef" type="boolean" defaultValueComputed="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueComputed="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="SERIAL">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>
+            ALTER TABLE employee_aud
+            ADD PRIMARY KEY (id,rev)
+        </sql>
+    </changeSet>
+</databaseChangeLog>
+

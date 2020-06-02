@@ -1,0 +1,41 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Alesksei_Iun" id="2020-03-24-1-create-sequence-department">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="department_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="department_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Alesksei_Iun" id="2020-03-24-2-create-table-department">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="department"/>
+            </not>
+        </preConditions>
+        <createTable tableName="department">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="id_department_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="create_date" type="date" defaultValueComputed="current_date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="upper_department" type="smallint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueComputed="false">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

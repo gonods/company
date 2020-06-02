@@ -1,0 +1,43 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Alesksei_Iun" id="2020-04-15-1-create-sequence-salary">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="salary_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="salary_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Alesksei_Iun" id="2020-04-15-2-create-table-salary">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="salary"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="salary">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="id_salary_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="salary_fond" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="SERIAL">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>
+            ALTER TABLE salary
+            ADD CONSTRAINT department_id_fk FOREIGN KEY (department_id)
+            REFERENCES department (id) ON DELETE CASCADE
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>
